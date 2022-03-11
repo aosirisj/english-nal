@@ -1,0 +1,13 @@
+So/RB she/PRP went/VBD to/IN a/DT witch/NN to/TO ask/VB for/IN help/NN ./.
+
+advmod(went-3, So-1)
+nsubj(went-3, she-2)
+nsubj:xsubj(ask-8, she-2)
+root(ROOT-0, went-3)
+case(witch-6, to-4)
+det(witch-6, a-5)
+obl:to(went-3, witch-6)
+mark(ask-8, to-7)
+xcomp(went-3, ask-8)
+case(help-10, for-9)
+obl:for(ask-8, help-10)

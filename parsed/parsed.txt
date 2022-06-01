@@ -1,13 +1,15 @@
-So/RB she/PRP went/VBD to/IN a/DT witch/NN to/TO ask/VB for/IN help/NN ./.
+The/DT suggestion/NN was/VBD supported/VBN both/CC by/IN biotech/JJ companies/NNS and/CC environmental/JJ groups/NNS ./.
 
-advmod(went-3, So-1)
-nsubj(went-3, she-2)
-nsubj:xsubj(ask-8, she-2)
-root(ROOT-0, went-3)
-case(witch-6, to-4)
-det(witch-6, a-5)
-obl:to(went-3, witch-6)
-mark(ask-8, to-7)
-xcomp(went-3, ask-8)
-case(help-10, for-9)
-obl:for(ask-8, help-10)
+det(suggestion-2, The-1)
+nsubj:pass(supported-4, suggestion-2)
+aux:pass(supported-4, was-3)
+root(ROOT-0, supported-4)
+dep(companies-8, both-5)
+case(companies-8, by-6)
+amod(companies-8, biotech-7)
+obl:by(supported-4, companies-8)
+cc(groups-11, and-9)
+amod(groups-11, environmental-10)
+obl:by(supported-4, groups-11)
+conj:and(companies-8, groups-11)
+

@@ -1,0 +1,4 @@
+		The red guide was given to
+Bill Gates	PERSON	by
+Ford	ORGANIZATION	.
+

@@ -1,0 +1,11 @@
+lema('The', 'The').
+lema('suggestion', 'suggestion').
+lema('was', 'be').
+lema('supported', 'support').
+lema('both', 'both').
+lema('by', 'by').
+lema('biotech', 'biotech').
+lema('companies', 'company').
+lema('and', 'and').
+lema('environmental', 'environmental').
+lema('groups', 'group').

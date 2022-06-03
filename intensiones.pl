@@ -37,13 +37,8 @@ palabra_termino(_, _, Palabra, Termino):- ground(Palabra), Palabra = 'PERSON', T
 palabra_termino(_, _, Palabra, Termino):- entidades(Ents),
                                           ground(Palabra),
                                           member(Palabra, Ents),
-                                          atomic_list_concat(['{', Palabra, '}'], Termino), !.
-                                          
-palabra_termino(Dict, Deps, Palabra, Termino):- not(instancia(Dict, Deps, Palabra, _)),
-                                                encontrar_dep_sin_corte(Deps, amod, Palabra, Adjetivo),
-                                                propiedad(Dict, Adjetivo, AdjetivoT),   
-                                                atomic_list_concat([Palabra, ' & ', AdjetivoT], Termino), !.
-                                                     
+                                          atomic_list_concat(['{', Palabra, '}'], Termino), !.                                
+                                                         
 palabra_termino(Dict, Deps, Palabra, Termino):- ground(Palabra),
                                                 propiedad(Dict, Palabra, Termino), !;
                                                 ground(Palabra),

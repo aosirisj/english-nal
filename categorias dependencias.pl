@@ -51,9 +51,12 @@ encontrar_dep_sin_corte(Tripletas, Dep, Cabeza, Dependiente):- member(T, Triplet
                                                                %atomic_list_concat([Depe, '-', PosD], Dependiente).
                                                                                   
 encontrar_dep(Tripletas, Dep, Cabeza, Dependiente):- member(T, Tripletas),
-                                                     tripleta(T, Cabeza, _, Dep, Dependiente, _), !;
+                                                     tripleta(T, Cabeza, _, Dep, Dependiente, _);
                                                      %atomic_list_concat([Cab, '-', PosC], Cabeza),
                                                      %atomic_list_concat([Depe, '-', PosD], Dependiente), !;
+                                                     findall(Dependiente, (member(T, Tripletas), 
+                                                                 tripleta(T, Cabeza, _, Dep, Dependiente, _)), Deps),
+                                                     Deps = [],            
                                                      member(Root, Tripletas),
                                                      tripleta(Root, _, 0, root, Cabeza, _).
                                                      %atomic_list_concat([Raiz, '-', PosR], Cabeza).

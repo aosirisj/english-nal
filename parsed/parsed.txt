@@ -1,15 +1,12 @@
-The/DT suggestion/NN was/VBD supported/VBN both/CC by/IN biotech/JJ companies/NNS and/CC environmental/JJ groups/NNS ./.
+The/DT winning/VBG class/NN had/VBD a/DT pizza/NN party/NN on/IN Halloween/NNP ./.
 
-det(suggestion-2, The-1)
-nsubj:pass(supported-4, suggestion-2)
-aux:pass(supported-4, was-3)
-root(ROOT-0, supported-4)
-dep(companies-8, both-5)
-case(companies-8, by-6)
-amod(companies-8, biotech-7)
-obl:by(supported-4, companies-8)
-cc(groups-11, and-9)
-amod(groups-11, environmental-10)
-obl:by(supported-4, groups-11)
-conj:and(companies-8, groups-11)
+det(class-3, The-1)
+amod(class-3, winning-2)
+nsubj(had-4, class-3)
+root(ROOT-0, had-4)
+det(party-7, a-5)
+compound(party-7, pizza-6)
+obj(had-4, party-7)
+case(Halloween-9, on-8)
+nmod:on(party-7, Halloween-9)
 

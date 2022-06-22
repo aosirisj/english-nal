@@ -20,7 +20,7 @@ id_ner(IdIns, Entidades):- atomic_list_concat(["/home/alejandra/Documents/tareas
                                                
 id_juiciosEntidades(IdIns, Dict, Deps):- id_ner(IdIns, Entidades),
                                          findall(_, (get_dict(E, Entidades, I), palabra_termino(Dict, Deps, E, S),
-                                                     palabra_termino(Dict, Deps, I, P), assert(juicio(S, P, [1,0.9]))), _).
+                                                     palabra_termino(Dict, Deps, I, P), assert(juicio(inheritance(S, P), [1,0.9]))), _).
 
 
                                                  

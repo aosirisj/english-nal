@@ -14,12 +14,19 @@ is_odd_element([A, _|B], X) :- A = X, !;
 anterior(L, P, E):- append(A, [E|_], L),
                     last(A, P).
                     
-zip_unzip(Primeros, Segundos, Pares):- maplist([P, S, P:S] >> true, Primeros, Segundos, Pares).                                                                        
+zip_unzip(Primeros, Segundos, Pares):- maplist([P, S, P:S] >> true, Primeros, Segundos, Pares).                                                                      
                                
-imprimir(Lista) :- foreach(member(X, Lista), writeln(X)).                                                                  
+imprimir(Lista) :- foreach(member(X, Lista), writeln(X)).
+
+numerar(Lista, Dict):- findall(Numerado, (nth1(N, Lista, Llave:Cat), atomic_list_concat([Llave, '-', N], Numero), Numerado = Numero:Cat), Numerados),
+                       dict_create(Dict, _, Numerados).
+                       
+palabra_pos(PalabraConPos, Palabra, Pos):- atomic_list_concat([Palabra, Pos], '-', PalabraConPos).                                                  
 
 %Listas de abreviaciones de PoS tags de Penn Treebank. Para nuestros fines sólo es necesario identificar la función de estos 4 tipos.
 adjetivo(T):- member(T, ['JJ']).
+
+superlativo(T):- member(T, ['JJR', 'JJS']).
 
 no_propio(T):- member(T, ['NN', 'NNS', 'NNP', 'NNPS']).
 

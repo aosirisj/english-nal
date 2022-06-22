@@ -1,4 +1,3 @@
-		The red guide was given to
-Bill Gates	PERSON	by
-Ford	ORGANIZATION	.
+		The winning class had a pizza party on
+Halloween	DATE	.
 

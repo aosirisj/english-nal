@@ -1,3 +1,4 @@
-		The winning class had a pizza party on
-Halloween	DATE	.
+		The important manual was given to
+Bill Gates	PERSON	by
+Ford	ORGANIZATION	.
 

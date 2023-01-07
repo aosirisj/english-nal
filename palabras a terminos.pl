@@ -29,7 +29,7 @@ instancia(Dict, Deps, PalabraConPos, Termino):- es_categoria(Dict, PalabraConPos
                                                 lema(Palabra, Lema),
                                                 assert(juicio(inheritance(Termino, Lema), [1, 0.9])), !;
                                                 es_categoria(Dict, PalabraConPos, 'no_propio'),
-                                                encontrar_dep_sin_corte(Deps, 'amod:poss', PalabraConPos, DeterminanteConPos),
+                                                encontrar_dep_sin_corte(Deps, 'nmod:poss', PalabraConPos, DeterminanteConPos),
                                                 palabra_pos(DeterminanteConPos, Determinante, _),
                                                 palabra_pos(PalabraConPos, Palabra, N),   
                                                 atomic_list_concat(['{',Determinante, '-', Palabra, '-', N, '}'], Termino),
@@ -38,7 +38,7 @@ instancia(Dict, Deps, PalabraConPos, Termino):- es_categoria(Dict, PalabraConPos
                                           
 palabra_termino(_, _, Palabra, Termino):- ground(Palabra), Palabra = 'PERSON', Termino = 'person.n.1', !;
                                           ground(Palabra), Palabra = 'ORGANIZATION', Termino = 'organization.n.1', !;
-                                          ground(Palabra), Palabra = 'LOCATION', Termino = 'location;.n.1', !.
+                                          ground(Palabra), Palabra = 'LOCATION', Termino = 'location.n.1', !.
                                           
 palabra_termino(_, _, Palabra, Termino):- entidades(Ents),
                                           ground(Palabra),

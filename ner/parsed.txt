@@ -1,4 +1,4 @@
-		The important manual was given to
-Bill Gates	PERSON	by
+		The important guide was reluctantly given to
+Gates	PERSON	by
 Ford	ORGANIZATION	.
 

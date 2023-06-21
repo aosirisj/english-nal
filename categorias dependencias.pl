@@ -40,12 +40,12 @@ encontrar_CGs_dependencias_id(IdIns, OracionCG, Deps):- atomic_list_concat(["/ho
 encontrar_nsubj(Tripletas, Cabeza, Dependiente):- member(T, Tripletas),
                                                   tripleta(T, Cab, PosC, nsubj, Depe, PosD),
                                                   atomic_list_concat([Cab, '-', PosC], Cabeza),
-                                                  atomic_list_concat([Depe, '-', PosD], Dependiente), !.
+                                                  atomic_list_concat([Depe, '-', PosD], Dependiente).
                                                   
 encontrar_nsubjp(Tripletas, Cabeza, Dependiente):- member(T, Tripletas),
                                                    tripleta(T, Cab, PosC, 'nsubj:pass', Depe, PosD),
                                                    atomic_list_concat([Cab, '-', PosC], Cabeza),
-                                                   atomic_list_concat([Depe, '-', PosD], Dependiente), !.
+                                                   atomic_list_concat([Depe, '-', PosD], Dependiente).%, !.
 
 encontrar_dep_sin_corte(Tripletas, Dep, Cabeza, Dependiente):- member(T, Tripletas),
                                                                tripleta(T, Cab, PosC, Dep, Depe, PosD),
@@ -58,18 +58,18 @@ encontrar_dep(Tripletas, Dep, Cabeza, Dependiente):- member(T, Tripletas),
                                                      atomic_list_concat([Depe, '-', PosD], Dependiente), !;
                                                      findall(Dependiente, (member(T, Tripletas), 
                                                                  tripleta(T, Cabeza, _, Dep, Dependiente, _)), Deps),
-                                                      Deps = [],            
-                                                      member(Root, Tripletas),
-                                                      tripleta(Root, _, 0, root, Raiz, PosR),
-                                                      atomic_list_concat([Raiz, '-', PosR], Cabeza), !;
-                                                      findall(Dependiente, (member(T, Tripletas), 
-                                                                 tripleta(T, Cabeza, _, Dep, Dependiente, _)), Deps),
-                                                      Deps = [],            
-                                                      member(Root, Tripletas),
-                                                      tripleta(Root, _, 0, root, Raiz, PosR),
-                                                      member(And, Tripletas),
-                                                      tripleta(And, Raiz, PosR, 'conj:and', Raiz2, PosR2),
-                                                      atomic_list_concat([Raiz2, '-', PosR2], Cabeza).
+                                                      Deps = [].            
+                                                      %member(Root, Tripletas),
+                                                      %tripleta(Root, _, 0, root, Raiz, PosR),
+                                                      %atomic_list_concat([Raiz, '-', PosR], Cabeza), !;
+                                                      %findall(Dependiente, (member(T, Tripletas), 
+                                                      %           tripleta(T, Cabeza, _, Dep, Dependiente, _)), Deps),
+                                                      %Deps = [],            
+                                                      %member(Root, Tripletas),
+                                                      %tripleta(Root, _, 0, root, Raiz, PosR),
+                                                      %member(And, Tripletas),
+                                                      %tripleta(And, Raiz, PosR, 'conj:and', Raiz2, PosR2),
+                                                      %atomic_list_concat([Raiz2, '-', PosR2], Cabeza).
                                                      
 descartar_dep(Tripletas, Dep, Cabeza, Dependiente):- member(T, Tripletas),
                                                      not(tripleta(T, Cabeza, _, Dep,Dependiente,_)).

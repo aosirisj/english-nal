@@ -1,4 +1,3 @@
-		The important guide was reluctantly given to
-Gates	PERSON	by
-Ford	ORGANIZATION	.
+
+Susan	PERSON	is liable to be arrested .
 

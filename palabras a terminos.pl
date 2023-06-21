@@ -36,9 +36,9 @@ instancia(Dict, Deps, PalabraConPos, Termino):- es_categoria(Dict, PalabraConPos
                                                 lema(Palabra, Lema),
                                                 assert(juicio(inheritance(Termino, Lema), [1, 0.9])).
                                           
-palabra_termino(_, _, Palabra, Termino):- ground(Palabra), Palabra = 'PERSON', Termino = 'person.n.1', !;
-                                          ground(Palabra), Palabra = 'ORGANIZATION', Termino = 'organization.n.1', !;
-                                          ground(Palabra), Palabra = 'LOCATION', Termino = 'location.n.1', !.
+palabra_termino(_, _, Palabra, Termino):- ground(Palabra), Palabra = 'PERSON', Termino = 'person.n.01', !;
+                                          ground(Palabra), Palabra = 'ORGANIZATION', Termino = 'organization.n.01', !;
+                                          ground(Palabra), Palabra = 'LOCATION', Termino = 'location.n.01', !.
                                           
 palabra_termino(_, _, Palabra, Termino):- entidades(Ents),
                                           ground(Palabra),

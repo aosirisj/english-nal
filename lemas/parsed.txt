@@ -1,10 +1,6 @@
-lema('The', 'The').
-lema('important', 'important').
-lema('manual', 'manual').
-lema('was', 'be').
-lema('given', 'give').
+lema('Susan', 'Susan').
+lema('is', 'be').
+lema('liable', 'liable').
 lema('to', 'to').
-lema('Bill', 'Bill').
-lema('Gates', 'Gates').
-lema('by', 'by').
-lema('Ford', 'Ford').
+lema('be', 'be').
+lema('arrested', 'arrest').

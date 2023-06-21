@@ -1,0 +1,10 @@
+Susan/NNP is/VBZ liable/JJ to/TO be/VB arrested/VBN ./.
+
+nsubj(liable-3, Susan-1)
+nsubj:pass:xsubj(arrested-6, Susan-1)
+cop(liable-3, is-2)
+root(ROOT-0, liable-3)
+mark(arrested-6, to-4)
+aux:pass(arrested-6, be-5)
+xcomp(liable-3, arrested-6)
+

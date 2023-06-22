@@ -1,5 +1,23 @@
 :- include('/home/alejandra/Documents/tareasDCC/eso/traduccion/palabras a terminos').
 
+encontrar_csubj(Dict, Deps, Accion, SujT):- encontrar_dep_sin_corte(Deps, csubj, Accion, Sub),
+                                      (ccomp_juicio_nocopular(Dict, Deps, Sub, SujT);
+                                       ccomp_juicio_copular(Dict, Deps, Sub, SujT);
+                                       xcomp_juicio_nocopular(Dict, Deps, Sub, SujT);
+                                       xcomp_juicio_copular(Dict, Deps, Sub, SujT);
+                                       activa_a_juicio(Dict, Deps, Sub, SujT);
+                                       pasiva_a_juicio(Dict, Deps, Sub, SujT);
+                                       copular(Dict, Deps, Sub, SujT)).
+                                       
+encontrar_csubjp(Dict, Deps, Accion, SujT):- encontrar_dep_sin_corte(Deps, 'csubj:pass', Accion, Sub),
+                                      (ccomp_juicio_nocopular(Dict, Deps, Sub, SujT);
+                                       ccomp_juicio_copular(Dict, Deps, Sub, SujT);
+                                       xcomp_juicio_nocopular(Dict, Deps, Sub, SujT);
+                                       xcomp_juicio_copular(Dict, Deps, Sub, SujT);
+                                       activa_a_juicio(Dict, Deps, Sub, SujT);
+                                       pasiva_a_juicio(Dict, Deps, Sub, SujT);
+                                       copular(Dict, Deps, Sub, SujT)).
+
 ccomp_juicio_nocopular(Dict, Deps, Accion, inheritance(SujetoT, PredicadoT)):- not(encontrar_dep_sin_corte(Deps, cop, Accion, _)),
 								     es_categoria(Dict, Accion, verbo),
 								     %Analisis objeto ccomp
@@ -11,9 +29,10 @@ ccomp_juicio_nocopular(Dict, Deps, Accion, inheritance(SujetoT, PredicadoT)):- n
                                                                       activa_a_juicio(Dict, Deps, Sub, ObjT);
                                                                       pasiva_a_juicio(Dict, Deps, Sub, ObjT);
                                                                       copular(Dict, Deps, Sub, ObjT)),
-								     %Analisis sujeto atomico
-								     encontrar_nsubj(Deps, Accion, Suj),
-								     palabra_termino(Dict, Deps, Suj, SujT),
+								     %Analisis sujeto
+								     (encontrar_csubj(Dict, Deps, Accion, SujT);
+								      encontrar_nsubj(Deps, Accion, Suj),
+								     palabra_termino(Dict, Deps, Suj, SujT)),
                                                                      %Analisis objeto indirecto atomico
                                                                      (encontrar_dep_sin_corte(Deps, iobj, Accion, Iobj);
                                                                       encontrar_dep(Deps, 'obl:to', Accion, Iobj)),
@@ -27,7 +46,7 @@ ccomp_juicio_nocopular(Dict, Deps, Accion, inheritance(SujetoT, PredicadoT)):- n
                                                                      %Analisis sujeto herencia
                                                                      SujetoT = [SujT, ObjT, IobjT].
                                                                      
-ccomp_juicio_copular(Dict, Deps, Predicado, inheritance(SujetoT, PredicadoT)):- not(es_categoria(Dict, Predicado, verbo)),
+ccomp_juicio_copular(Dict, Deps, Predicado, inheritance(SujetoT, PredicadoT)):- encontrar_dep_sin_corte(Deps, cop, Predicado, _),
 								     %Analisis objeto ccomp
 								     encontrar_dep_sin_corte(Deps, ccomp, Predicado, Sub),
                                                                      (ccomp_juicio_nocopular(Dict, Deps, Sub, ObjT);
@@ -38,8 +57,9 @@ ccomp_juicio_copular(Dict, Deps, Predicado, inheritance(SujetoT, PredicadoT)):- 
                                                                       pasiva_a_juicio(Dict, Deps, Sub, ObjT);
                                                                       copular(Dict, Deps, Sub, ObjT)),
 								     %Analisis sujeto atomico
-								     encontrar_nsubj(Deps, Predicado, Suj),
-								     palabra_termino(Dict, Deps, Suj, SujT),
+								     (encontrar_csubj(Dict, Deps, Predicado, SujT);
+								      encontrar_nsubj(Deps, Predicado, Suj),
+								     palabra_termino(Dict, Deps, Suj, SujT)),
                                                                      %Analisis predicado (herencia)
                                                                      palabra_termino(Dict, Deps, Predicado, PredicadoT),
                                                                      %Analisis sujeto herencia
@@ -56,8 +76,9 @@ xcomp_juicio_nocopular(Dict, Deps, Accion, inheritance(SujetoT, PredicadoT)):- n
                                                                       analisis_xcomp_nocopular(Dict, Deps, Sub, ObjT);
                                                                       analisis_xcomp_copular(Dict, Deps, Sub, ObjT)),
 								     %Analisis sujeto atomico
-								     encontrar_nsubj(Deps, Accion, Suj),
-								     palabra_termino(Dict, Deps, Suj, SujT),
+								     (encontrar_csubj(Dict, Deps, Accion, SujT);
+								      encontrar_nsubj(Deps, Accion, Suj),
+								     palabra_termino(Dict, Deps, Suj, SujT)),
                                                                      %Analisis objeto indirecto atomico
                                                                      (encontrar_dep_sin_corte(Deps, iobj, Accion, Iobj);
                                                                       encontrar_dep(Deps, 'obl:to', Accion, Iobj)),
@@ -71,7 +92,7 @@ xcomp_juicio_nocopular(Dict, Deps, Accion, inheritance(SujetoT, PredicadoT)):- n
                                                                      %Analisis sujeto herencia
                                                                      SujetoT = [SujT, ObjT, IobjT].
                                                                      
-xcomp_juicio_copular(Dict, Deps, Predicado, inheritance(SujetoT, PredicadoT)):- not(es_categoria(Dict, Predicado, verbo)),
+xcomp_juicio_copular(Dict, Deps, Predicado, inheritance(SujetoT, PredicadoT)):- encontrar_dep_sin_corte(Deps, cop, Predicado, _),
 								     %Analisis objeto ccomp
 								     encontrar_dep_sin_corte(Deps, xcomp, Predicado, Sub),
                                                                      (ccomp_juicio_nocopular(Dict, Deps, Sub, ObjT);
@@ -81,8 +102,9 @@ xcomp_juicio_copular(Dict, Deps, Predicado, inheritance(SujetoT, PredicadoT)):- 
                                                                       analisis_xcomp_nocopular(Dict, Deps, Sub, ObjT);
                                                                       analisis_xcomp_copular(Dict, Deps, Sub, ObjT)),
 								     %Analisis sujeto atomico
-								     encontrar_nsubj(Deps, Predicado, Suj),
-								     palabra_termino(Dict, Deps, Suj, SujT),
+								     (encontrar_csubj(Dict, Deps, Predicado, SujT);
+								      encontrar_nsubj(Deps, Predicado, Suj),
+								     palabra_termino(Dict, Deps, Suj, SujT)),
                                                                      %Analisis predicado (herencia)
                                                                      palabra_termino(Dict, Deps, Predicado, PredicadoT),
                                                                      %Analisis sujeto herencia
@@ -94,7 +116,8 @@ analisis_xcomp_nocopular(Dict, Deps, Sub, inheritance(SujetoT, PredicadoT)):- es
 								     %Analisis sujeto atomico
 								     (encontrar_dep_sin_corte(Deps, obj, Accion, Suj) -> 
                                                                       palabra_termino(Dict, Deps, Suj, SujT);
-                                                                      encontrar_dep(Deps, nsubj, Accion, Suj),
+                                                                      encontrar_csubj(Dict, Deps, Accion, SujT);
+								      encontrar_nsubj(Deps, Accion, Suj),
 								      palabra_termino(Dict, Deps, Suj, SujT)),
                                                                       %Analisis objeto atomico
 								     encontrar_dep(Deps, obj, Sub, Obj),
@@ -112,23 +135,26 @@ analisis_xcomp_nocopular(Dict, Deps, Sub, inheritance(SujetoT, PredicadoT)):- es
                                                                      %Analisis sujeto herencia
                                                                      SujetoT = [SujT, ObjT, IobjT].
                                                                      
-analisis_xcomp_copular(Dict, Deps, Sub, inheritance(SujetoT, PredicadoT)):- not(es_categoria(Dict, Sub, verbo)),
+analisis_xcomp_copular(Dict, Deps, Sub, inheritance(SujetoT, PredicadoT)):- encontrar_dep_sin_corte(Deps, cop, Sub, _),
 								     encontrar_dep_sin_corte(Deps, xcomp, Accion, Sub),
 								     %Analisis sujeto atomico
 								     (encontrar_dep_sin_corte(Deps, obj, Accion, Suj) -> 
                                                                       palabra_termino(Dict, Deps, Suj, SujetoT);
-                                                                      encontrar_dep(Deps, nsubj, Accion, Suj),
-								      palabra_termino(Dict, Deps, Suj, SujetoT)),
-								      %Analisis predicado
-								      palabra_termino(Dict, Deps, Sub, PredicadoT).
+                                                                     (encontrar_csubj(Dict, Deps, Accion, SujetoT);
+								      encontrar_dep(Deps, nsubj, Accion, Suj),
+								      palabra_termino(Dict, Deps, Suj, SujetoT))),
+								     %Analisis predicado
+								     palabra_termino(Dict, Deps, Sub, PredicadoT).
                                                                      
 activa_a_juicio(Dict, Deps, Accion, inheritance(SujetoT, PredicadoT)):- not(encontrar_dep_sin_corte(Deps, ccomp, Accion, _)),
 									not(encontrar_dep_sin_corte(Deps, xcomp, Accion, _)),
 								     not(encontrar_dep_sin_corte(Deps, cop, Accion, _)),
 								     es_categoria(Dict, Accion, verbo),
 								     %Analisis sujeto atomico
-								     encontrar_dep(Deps, nsubj, Accion, Suj),
-								     palabra_termino(Dict, Deps, Suj, SujT),
+								     (encontrar_csubj(Dict, Deps, Accion, SujT);
+								      not(encontrar_csubj(Dict, Deps, Accion, SujT)),
+								      encontrar_dep(Deps, Accion, nsubj, Suj),
+								      palabra_termino(Dict, Deps, Suj, SujT)),
 								     %Analisis objeto atomico
 								     encontrar_dep(Deps, obj, Accion, Obj),
                                                                      palabra_termino(Dict, Deps, Obj, ObjT),
@@ -162,8 +188,9 @@ pasiva_a_juicio(Dict, Deps, Accion, inheritance(SujetoT, PredicadoT)):- not(enco
 									not(encontrar_dep_sin_corte(Deps, xcomp, Accion, _)),
 									es_categoria(Dict, Accion, verbo),
 								     %Analisis objeto
-								     encontrar_nsubjp(Deps, Accion, Obj),
-                                                                     palabra_termino(Dict, Deps, Obj, ObjT),
+								     (encontrar_csubjp(Dict, Deps, Accion, ObjT);
+								      encontrar_nsubjp(Deps, Accion, Obj),
+                                                                      palabra_termino(Dict, Deps, Obj, ObjT)),
                                                                      %Analisis recipiente
                                                                      encontrar_dep(Deps, 'obl:to', Accion, Iobj),
                                                                      palabra_termino(Dict, Deps, Iobj, IobjT),
@@ -179,12 +206,14 @@ pasiva_a_juicio(Dict, Deps, Accion, inheritance(SujetoT, PredicadoT)):- not(enco
                                                                       atomic_list_concat([AccionT, ' & ', AdvT], PredicadoT);
                                                                       PredicadoT = AccionT).
                                                                        
-copular(Dict, Deps, Predicado, inheritance(SujetoT, PredicadoT)):- not(es_categoria(Dict, Predicado, verbo)),
+copular(Dict, Deps, Predicado, inheritance(SujetoT, PredicadoT)):- encontrar_dep_sin_corte(Deps, cop, Predicado, _),
 							     not(encontrar_dep_sin_corte(Deps, ccomp, Predicado, _)),
 							     not(encontrar_dep_sin_corte(Deps, xcomp, Predicado, _)),
-							     encontrar_nsubj(Deps, Predicado, Sujeto),
                                                              palabra_termino(Dict, Deps, Predicado, PredicadoT),
-                                                             palabra_termino(Dict, Deps, Sujeto, SujetoT).
+                                                             (encontrar_csubj(Dict, Deps, Predicado, SujetoT);
+							      encontrar_nsubj(Deps, Predicado, Suj),
+							      palabra_termino(Dict, Deps, Suj, SujetoT)).
+                                                             %Falta agregar caso en el que Predicado es clausula
                                                                
 adjetivo_a_juicio(Dict, Deps, juicio(inheritance(SujetoT, PredicadoT), [1,0.9])):- encontrar_dep_sin_corte(Deps, amod, Sujeto, Predicado),
                                                                       not(es_categoria(Dict, Predicado, superlativo)),

@@ -1,6 +1,6 @@
-lema('Susan', 'Susan').
-lema('is', 'be').
-lema('liable', 'liable').
-lema('to', 'to').
-lema('be', 'be').
-lema('arrested', 'arrest').
+lema('Taking', 'Taking').
+lema('a', 'a').
+lema('nap', 'nap').
+lema('will', 'will').
+lema('relax', 'relax').
+lema('you', 'you').

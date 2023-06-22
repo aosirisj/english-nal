@@ -1,10 +1,9 @@
-Susan/NNP is/VBZ liable/JJ to/TO be/VB arrested/VBN ./.
+Taking/VBG a/DT nap/NN will/MD relax/VB you/PRP ./.
 
-nsubj(liable-3, Susan-1)
-nsubj:pass:xsubj(arrested-6, Susan-1)
-cop(liable-3, is-2)
-root(ROOT-0, liable-3)
-mark(arrested-6, to-4)
-aux:pass(arrested-6, be-5)
-xcomp(liable-3, arrested-6)
+csubj(relax-5, Taking-1)
+det(nap-3, a-2)
+obj(Taking-1, nap-3)
+aux(relax-5, will-4)
+root(ROOT-0, relax-5)
+obj(relax-5, you-6)
 

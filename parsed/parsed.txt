@@ -1,9 +1,10 @@
-Taking/VBG a/DT nap/NN will/MD relax/VB you/PRP ./.
+My/PRP$ sister/NN was/VBD looking/VBG around/RP for/IN me/PRP ./.
 
-csubj(relax-5, Taking-1)
-det(nap-3, a-2)
-obj(Taking-1, nap-3)
-aux(relax-5, will-4)
-root(ROOT-0, relax-5)
-obj(relax-5, you-6)
+nmod:poss(sister-2, My-1)
+nsubj(looking-4, sister-2)
+aux(looking-4, was-3)
+root(ROOT-0, looking-4)
+compound:prt(looking-4, around-5)
+case(me-7, for-6)
+obl:for(looking-4, me-7)
 

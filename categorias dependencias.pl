@@ -1,4 +1,4 @@
-:- include('/home/alejandra/Documents/tareasDCC/eso/traduccion/base').
+:- include('./traduccion/base').
 
 %palabra_categoria(Dupla, Palabra, CG, Dict) es verdadero cuando 
 palabra_categoria(Dupla, Palabra, CG, Dict):- re_matchsub('(.+?)/(.+)', Dupla, Dict, []),
@@ -50,7 +50,7 @@ encontrar_nsubjp(Tripletas, Cabeza, Dependiente):- member(T, Tripletas),
 encontrar_dep_sin_corte(Tripletas, Dep, Cabeza, Dependiente):- member(T, Tripletas),
                                                                tripleta(T, Cab, PosC, Dep, Depe, PosD),
                                                                atomic_list_concat([Cab, '-', PosC], Cabeza),
-                                                               atomic_list_concat([Depe, '-', PosD], Dependiente).
+                                                               atomic_list_concat([Depe, '-', PosD], Dependiente).         
                                                                                   
 encontrar_dep(Tripletas, Dep, Cabeza, Dependiente):- member(T, Tripletas),
                                                      tripleta(T, Cab, PosC, Dep, Depe, PosD),

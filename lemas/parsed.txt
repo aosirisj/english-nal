@@ -1,6 +1,7 @@
-lema('Taking', 'Taking').
-lema('a', 'a').
-lema('nap', 'nap').
-lema('will', 'will').
-lema('relax', 'relax').
-lema('you', 'you').
+lema('My', 'My').
+lema('sister', 'sister').
+lema('was', 'be').
+lema('looking', 'look').
+lema('around', 'around').
+lema('for', 'for').
+lema('me', 'me').

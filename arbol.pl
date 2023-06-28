@@ -1,7 +1,7 @@
 %Los predicados de este módulo obtienen el código en dot para la representación gráfica de dependencias universales de una oración.
 %Se espera que las dependencias universales esten escritas en una sola cadena con saltos de línea entre cada dependncia.
 
-:- include('/home/alejandra/Documents/tareasDCC/eso/traduccion/categorias dependencias').
+:- include('./traduccion/categorias dependencias').
 
 %arista(N1, N2, Rel, Arista) es verdadero cuando Arista es la linea en codigo dot para la arista dirigida que tiene como cabeza a N1 y como dependiente a N2. La flecha de la arista está etiquetada con Rel.
 %Nondet

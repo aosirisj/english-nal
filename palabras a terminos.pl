@@ -1,4 +1,4 @@
-:- include('/home/alejandra/Documents/tareasDCC/eso/traduccion/ner').
+:- include('./traduccion/ner').
 
 categoria_gramatical(Dict, Palabra, CG):- get_dict(Palabra, Dict, CG).
 

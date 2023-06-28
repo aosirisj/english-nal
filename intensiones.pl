@@ -1,5 +1,5 @@
-:- include('/home/alejandra/Documents/tareasDCC/eso/traduccion/oraciones a juicios').
-:-include('/home/alejandra/wordnet-prolog-master/wn_load').
+:- include('./traduccion/oraciones a juicios').
+:- working_directory(CWD, CWD), atomic_list_concat([CWD, 'wordnet-prolog-master/wn_load'], WN), consult(WN).
 
 categoria_atomo(Dict, Palabra, a):- es_categoria(Dict, Palabra, adjetivo).
 categoria_atomo(Dict, Palabra, n):- es_categoria(Dict, Palabra, no_propio).

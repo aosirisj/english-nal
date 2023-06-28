@@ -1,4 +1,4 @@
-:- include('/home/alejandra/Documents/tareasDCC/eso/traduccion/categorias dependencias').
+:- include('./traduccion/categorias dependencias').
 
 entidad_intension(Renglon, Entidad, Intension):- re_matchsub('(.+?)\t(.+)\t.*', Renglon, Dict, []),
                                               get_dict(1, Dict, E),

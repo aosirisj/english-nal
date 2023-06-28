@@ -1,7 +1,7 @@
 %Predicados comunes a toda la traducción
 
 :-use_module(library(pcre)).
-:- include('/home/alejandra/Documents/tareasDCC/eso/traduccion/lemas/parsed.txt').
+:- include('./traduccion/lemas/parsed.txt').
 
 %is_odd_element(L, A) es verdadero cuando A tiene un índice impar en L.
 %L - Lista
@@ -37,5 +37,9 @@ adverbio(T):- member(T, ['RB', 'RBR', 'RBS']).
 verbo(T):- member(T, ['VB', 'VBD', 'VBG', 'VBN', 'VBP', 'VBZ']).
 
 determinante(T):- member(T, ['DT', 'PDT', 'PRP$', 'WDT', 'WP$']).
+
+preposicion(T):- member(T, ['IN']).
+
+tobe(T):- member(T, ['am', 'are', 'is', 'was', 'were', 'be', 'been', 'being']).
                                                  
                                                                                                     

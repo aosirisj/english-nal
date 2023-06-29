@@ -32,8 +32,7 @@ encontrar_CGs_dependencias(InstanciaP, Dict, Dependencias):- atomic_list_concat(
                                                              dict_categorias(OracionCG, Dict),
                                                              atomic_list_concat(Dependencias, "\n", DepsPlanas).
                                                          
-encontrar_CGs_dependencias_id(IdIns, OracionCG, Deps):- atomic_list_concat(["/home/alejandra/Documents/tareasDCC/eso/",
-                                                                            "traduccion/parsed/", IdIns, ".txt"], Direccion),
+encontrar_CGs_dependencias_id(IdIns, OracionCG, Deps):- atomic_list_concat(["./traduccion/parsed/", IdIns, ".txt"], Direccion),
                                                         read_file_to_string(Direccion, Instancia, []),
                                                         encontrar_CGs_dependencias(Instancia, OracionCG, Deps).
                                                         
@@ -45,7 +44,7 @@ encontrar_nsubj(Tripletas, Cabeza, Dependiente):- member(T, Tripletas),
 encontrar_nsubjp(Tripletas, Cabeza, Dependiente):- member(T, Tripletas),
                                                    tripleta(T, Cab, PosC, 'nsubj:pass', Depe, PosD),
                                                    atomic_list_concat([Cab, '-', PosC], Cabeza),
-                                                   atomic_list_concat([Depe, '-', PosD], Dependiente).%, !.
+                                                   atomic_list_concat([Depe, '-', PosD], Dependiente).
 
 encontrar_dep_sin_corte(Tripletas, Dep, Cabeza, Dependiente):- member(T, Tripletas),
                                                                tripleta(T, Cab, PosC, Dep, Depe, PosD),
@@ -59,20 +58,35 @@ encontrar_dep(Tripletas, Dep, Cabeza, Dependiente):- member(T, Tripletas),
                                                      findall(Dependiente, (member(T, Tripletas), 
                                                                  tripleta(T, Cabeza, _, Dep, Dependiente, _)), Deps),
                                                       Deps = [].            
-                                                      %member(Root, Tripletas),
-                                                      %tripleta(Root, _, 0, root, Raiz, PosR),
-                                                      %atomic_list_concat([Raiz, '-', PosR], Cabeza), !;
-                                                      %findall(Dependiente, (member(T, Tripletas), 
-                                                      %           tripleta(T, Cabeza, _, Dep, Dependiente, _)), Deps),
-                                                      %Deps = [],            
-                                                      %member(Root, Tripletas),
-                                                      %tripleta(Root, _, 0, root, Raiz, PosR),
-                                                      %member(And, Tripletas),
-                                                      %tripleta(And, Raiz, PosR, 'conj:and', Raiz2, PosR2),
-                                                      %atomic_list_concat([Raiz2, '-', PosR2], Cabeza).
                                                      
 descartar_dep(Tripletas, Dep, Cabeza, Dependiente):- member(T, Tripletas),
                                                      not(tripleta(T, Cabeza, _, Dep,Dependiente,_)).
+                                                     
+encontrar_dep_con_prep(Dict, Deps, Dep, Cabeza, Dependiente, Prep):- es_categoria(Dict, Preposicion, preposicion),
+                     						    palabra_pos(Preposicion, Prep, _),
+                                                                    atomic_list_concat([Dep, ':', Prep], DepPrep),
+                                                                    member(T, Deps),
+                                                                    tripleta(T, Cab, PosC, DepPrep, Depe, PosD),
+                                                                    atomic_list_concat([Cab, '-', PosC], Cabeza),
+                                                                    atomic_list_concat([Depe, '-', PosD], Dependiente). 
+
+encontrar_csubj(Dict, Deps, Accion, SujT):- encontrar_dep_sin_corte(Deps, csubj, Accion, Sub),
+                                      (ccomp_juicio_nocopular(Dict, Deps, Sub, SujT);
+                                       ccomp_juicio_copular(Dict, Deps, Sub, SujT);
+                                       xcomp_juicio_nocopular(Dict, Deps, Sub, SujT);
+                                       xcomp_juicio_copular(Dict, Deps, Sub, SujT);
+                                       activa_a_juicio(Dict, Deps, Sub, SujT);
+                                       pasiva_a_juicio(Dict, Deps, Sub, SujT);
+                                       copular(Dict, Deps, Sub, SujT)).
+                                       
+encontrar_csubjp(Dict, Deps, Accion, SujT):- encontrar_dep_sin_corte(Deps, 'csubj:pass', Accion, Sub),
+                                      (ccomp_juicio_nocopular(Dict, Deps, Sub, SujT);
+                                       ccomp_juicio_copular(Dict, Deps, Sub, SujT);
+                                       xcomp_juicio_nocopular(Dict, Deps, Sub, SujT);
+                                       xcomp_juicio_copular(Dict, Deps, Sub, SujT);
+                                       activa_a_juicio(Dict, Deps, Sub, SujT);
+                                       pasiva_a_juicio(Dict, Deps, Sub, SujT);
+                                       copular(Dict, Deps, Sub, SujT)).                                                     
                                                  
                                                  
                                                                                                     

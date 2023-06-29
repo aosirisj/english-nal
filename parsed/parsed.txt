@@ -1,10 +1,7 @@
-My/PRP$ sister/NN was/VBD looking/VBG around/RP for/IN me/PRP ./.
+There/EX are/VBP small/JJ children/NNS ./.
 
-nmod:poss(sister-2, My-1)
-nsubj(looking-4, sister-2)
-aux(looking-4, was-3)
-root(ROOT-0, looking-4)
-compound:prt(looking-4, around-5)
-case(me-7, for-6)
-obl:for(looking-4, me-7)
+expl(are-2, There-1)
+root(ROOT-0, are-2)
+amod(children-4, small-3)
+nsubj(are-2, children-4)
 

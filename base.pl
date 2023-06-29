@@ -21,7 +21,7 @@ imprimir(Lista) :- foreach(member(X, Lista), writeln(X)).
 numerar(Lista, Dict):- findall(Numerado, (nth1(N, Lista, Llave:Cat), atomic_list_concat([Llave, '-', N], Numero), Numerado = Numero:Cat), Numerados),
                        dict_create(Dict, _, Numerados).
                        
-palabra_pos(PalabraConPos, Palabra, Pos):- atomic_list_concat([Palabra, Pos], '-', PalabraConPos).                                                  
+palabra_pos(PalabraConPos, Palabra, Pos):- atomic_list_concat([Palabra, Pos], '-', PalabraConPos).                            
 
 %Listas de abreviaciones de PoS tags de Penn Treebank. Para nuestros fines sólo es necesario identificar la función de estos 4 tipos.
 adjetivo(T):- member(T, ['JJ']).

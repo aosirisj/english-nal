@@ -1,7 +1,4 @@
-lema('My', 'My').
-lema('sister', 'sister').
-lema('was', 'be').
-lema('looking', 'look').
-lema('around', 'around').
-lema('for', 'for').
-lema('me', 'me').
+lema('There', 'There').
+lema('are', 'be').
+lema('small', 'small').
+lema('children', 'child').

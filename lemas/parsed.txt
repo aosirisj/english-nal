@@ -1,4 +1,7 @@
-lema('There', 'There').
-lema('are', 'be').
-lema('small', 'small').
-lema('children', 'child').
+lema('Ana', 'Ana').
+lema('is', 'be').
+lema('as', 'as').
+lema('tall', 'tall').
+lema('as', 'as').
+lema('than', 'than').
+lema('Tom', 'Tom').

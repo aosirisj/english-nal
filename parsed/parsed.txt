@@ -1,7 +1,10 @@
-There/EX are/VBP small/JJ children/NNS ./.
+Ana/NNP is/VBZ as/RB tall/JJ as/RB than/IN Tom/NNP ./.
 
-expl(are-2, There-1)
-root(ROOT-0, are-2)
-amod(children-4, small-3)
-nsubj(are-2, children-4)
+nsubj(tall-4, Ana-1)
+cop(tall-4, is-2)
+advmod(tall-4, as-3)
+root(ROOT-0, tall-4)
+cc(Tom-7, as-5)
+dep(as-5, than-6)
+dep(tall-4, Tom-7)
 

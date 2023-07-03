@@ -171,7 +171,8 @@ pasiva_a_juicio(Dict, Deps, Accion, inheritance(SujetoT, PredicadoT)):- not(enco
                                                                      %Analisis predicado de herencia
                                                                      phrase(Dict, Deps, Accion, PredicadoT).
                                                                        
-copular(Dict, Deps, Predicado, inheritance(SujetoT, PredicadoT)):- encontrar_dep_sin_corte(Deps, cop, Predicado, _),
+copular(Dict, Deps, Predicado, inheritance(SujetoT, PredicadoT)):- %relacion adjetivo
+                                                                   encontrar_dep_sin_corte(Deps, cop, Predicado, _),
 							     not(encontrar_dep_sin_corte(Deps, ccomp, Predicado, _)),
 							     not(encontrar_dep_sin_corte(Deps, xcomp, Predicado, _)),
 							     (es_categoria(Dict, Predicado, adjetivo),
@@ -182,6 +183,19 @@ copular(Dict, Deps, Predicado, inheritance(SujetoT, PredicadoT)):- encontrar_dep
 							      encontrar_nsubj(Deps, Predicado, Suj),
 							      phrase(Dict, Deps, Suj, SujT)),
 				                             SujetoT = [SujT, ObjT]), !;
+				                             %relacion adjetivo comparativo
+                                                             encontrar_dep_sin_corte(Deps, cop, Predicado, _),
+							     not(encontrar_dep_sin_corte(Deps, ccomp, Predicado, _)),
+							     not(encontrar_dep_sin_corte(Deps, xcomp, Predicado, _)),
+							     (es_categoria(Dict, Predicado, comparativo),
+				                              encontrar_dep_con_prep(Dict, Deps, obl, Predicado, Dependiente, _),
+				                              atomic_list_concat(['[', Predicado, ']'], PredicadoT),
+				                              phrase(Dict, Deps, Dependiente, ObjT),
+				                              (encontrar_csubj(Dict, Deps, Predicado, SujT);
+							      encontrar_nsubj(Deps, Predicado, Suj),
+							      phrase(Dict, Deps, Suj, SujT)),
+				                             SujetoT = [SujT, ObjT]), !;
+				                             %modificador adverbial
 				                             encontrar_dep_sin_corte(Deps, cop, Predicado, _),
 							     not(encontrar_dep_sin_corte(Deps, ccomp, Predicado, _)),
 							     not(encontrar_dep_sin_corte(Deps, xcomp, Predicado, _)),
@@ -192,22 +206,21 @@ copular(Dict, Deps, Predicado, inheritance(SujetoT, PredicadoT)):- encontrar_dep
 							     atomic_list_concat(['[', AdvMod, ']'], AdvModT),
 							     palabra_termino(Dict, Deps, Predicado, PredT),
 							     atomic_list_concat([PredT, ' & ', AdvModT], PredicadoT), !;
-							     %agregar phrase para amod
+							     %otro
 							     encontrar_dep_sin_corte(Deps, cop, Predicado, _),
 							     not(encontrar_dep_sin_corte(Deps, ccomp, Predicado, _)),
 							     not(encontrar_dep_sin_corte(Deps, xcomp, Predicado, _)),
 							     (encontrar_csubj(Dict, Deps, Predicado, SujetoT);
 							      encontrar_nsubj(Deps, Predicado, Suj),
-							      palabra_termino(Dict, Deps, Suj, SujetoT)),
-							     mods(Dict, Deps, Predicado, _, Mod),
-							     atomic_list_concat(['[', Mod, ']'], PredicadoT), !;
-				                             encontrar_dep_sin_corte(Deps, cop, Predicado, _),
-							     not(encontrar_dep_sin_corte(Deps, ccomp, Predicado, _)),
-							     not(encontrar_dep_sin_corte(Deps, xcomp, Predicado, _)),
-				                              palabra_termino(Dict, Deps, Predicado, PredicadoT),
-                                                             (encontrar_csubj(Dict, Deps, Predicado, SujetoT);
-							      encontrar_nsubj(Deps, Predicado, Suj),
-							      palabra_termino(Dict, Deps, Suj, SujetoT)).
+							      phrase(Dict, Deps, Suj, SujetoT)),
+							     phrase(Dict, Deps, Predicado, PredicadoT).%, !;
+				                             %encontrar_dep_sin_corte(Deps, cop, Predicado, _),
+							     %not(encontrar_dep_sin_corte(Deps, ccomp, Predicado, _)),
+							     %not(encontrar_dep_sin_corte(Deps, xcomp, Predicado, _)),
+				                             % palabra_termino(Dict, Deps, Predicado, PredicadoT),
+                                                             %(encontrar_csubj(Dict, Deps, Predicado, SujetoT);
+							     % encontrar_nsubj(Deps, Predicado, Suj),
+							     % palabra_termino(Dict, Deps, Suj, SujetoT)).
                                                              %Falta agregar caso en el que Predicado es clausula
                                                                
 adjetivo_a_juicio(Dict, Deps, juicio(inheritance(SujetoT, PredicadoT), [1,0.9])):- encontrar_dep_sin_corte(Deps, amod, Sujeto, Predicado),

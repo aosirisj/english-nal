@@ -46,6 +46,36 @@ palabra_termino(_, _, PalabraPos, Termino):- entidades(Ents),
                                           member(Palabra, Ents),
                                           atomic_list_concat(['{', PalabraPos, '}'], Termino), !.
                                           
+palabra_termino(_, _, PPconPos, Termino):- ground(PPconPos), 
+                                           palabra_pos(PPconPos, PP, _),
+                                           PP = 'I',
+                                           atomic_list_concat(['{', PPconPos, '}'], Termino), !; 
+                                           ground(PPconPos), 
+                                           palabra_pos(PPconPos, PP, Pos),
+                                           (PP = 'me'; PP = 'Me'),
+                                           atomic_list_concat(['{I-', Pos, '}'], Termino), !;
+                                           ground(PPconPos), 
+                                           palabra_pos(PPconPos, PP, Pos),
+                                           (PP = 'you'; PP = 'You'),
+                                           atomic_list_concat(['{you-', Pos, '}'], Termino), !; 
+                                           ground(PPconPos), 
+                                           palabra_pos(PPconPos, PP, Pos),
+                                           (PP = 'she'; PP = 'She'; PP = 'her'; PP = 'Her'),
+                                           atomic_list_concat(['{she-', Pos, '}'], Termino), !; 
+                                           ground(PPconPos), 
+                                           palabra_pos(PPconPos, PP, Pos),
+                                           (PP = 'he'; PP = 'He'; PP = 'him'; PP = 'Him'),
+                                           atomic_list_concat(['{he-', Pos, '}'], Termino), !;
+                                           ground(PPconPos), 
+                                           palabra_pos(PPconPos, PP, Pos),
+                                           (PP = 'we'; PP = 'We'; PP = 'us'; PP = 'Us'),
+                                           atomic_list_concat(['{we-', Pos, '}'], Termino), !;
+                                           ground(PPconPos), 
+                                           palabra_pos(PPconPos, PP, Pos),
+                                           (PP = 'they'; PP = 'They'; PP = 'them'; PP = 'Them'),
+                                           atomic_list_concat(['{they-', Pos, '}'], Termino).  
+                                                      
+                                          
 %palabra_termino(Dict, Deps, PalabraConPos, Termino):- ground(PalabraConPos),
 %                                                      not(instancia(Dict, Deps, PalabraConPos, _)),
 %                                                      encontrar_dep_sin_corte(Deps, amod, PalabraConPos, AdjetivoConPos),
@@ -109,11 +139,30 @@ vp_mod(Dict, Deps, Core, Terms):- es_categoria(Dict, Core, 'verbo'),
                                   encontrar_dep_sin_corte(Deps, advmod, Core, Adv),
                                   palabra_termino(Dict, Deps, Adv, AdvT),
                                   atomic_list_concat([CoreT, ' & ', AdvT], Terms).
+                                  
+ap_mod(Dict, Deps, Core, Terms):- es_categoria(Dict, Core, 'adjetivo'),
+                                  (encontrar_dep_sin_corte(Deps, 'nummod', Core, Mod2);
+                                   encontrar_dep_con_prep(Dict, Deps, 'nmod', Core, Mod2, _);                            
+                                   encontrar_dep_sin_corte(Deps, 'nmod', Core, Mod2);
+                                   encontrar_dep_sin_corte(Deps, 'amod', Core, Mod2);
+                                   encontrar_dep_sin_corte(Deps, 'advmod', Core, Mod2)),
+                                  mods(Dict, Deps, Mod2, _, Mod2T),
+                                  palabra_termino(Dict, Deps, Core, CoreT),
+                                  atomic_list_concat(['[', Mod2T, '] & ', CoreT], Terms), !;
+                                  (encontrar_dep_sin_corte(Deps, 'nummod', Core, Mod2);
+                                   encontrar_dep_con_prep(Dict, Deps, 'nmod', Core, Mod2, _);                            
+                                   encontrar_dep_sin_corte(Deps, 'nmod', Core, Mod2);
+                                   encontrar_dep_sin_corte(Deps, 'amod', Core, Mod2);
+                                   encontrar_dep_sin_corte(Deps, 'advmod', Core, Mod2)),
+                                  palabra_pos(Mod2, Mod2P, N),
+                                  atomic_list_concat(['[', Mod2P, '-', N, ' ', Core, ']'], Terms).             
                                         
 phrase(Dict, Deps, Core, Terms):- ground(Core),
                                   np_mod(Dict, Deps, Core, Terms), !;
                                   ground(Core),
                                   vp_mod(Dict, Deps, Core, Terms), !;
+                                  ground(Core),
+                                  ap_mod(Dict, Deps, Core, Terms), !;
                                   palabra_termino(Dict, Deps, Core, Terms).
                                   
                                                                                                        

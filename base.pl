@@ -1,7 +1,7 @@
 %Predicados comunes a toda la traducción
 
 :-use_module(library(pcre)).
-:- include('./traduccion/lemas/parsed.txt').
+%:- include('./traduccion/lemas/parsed.txt').
 
 %is_odd_element(L, A) es verdadero cuando A tiene un índice impar en L.
 %L - Lista
@@ -28,6 +28,8 @@ adjetivo(T):- member(T, ['JJ']).
 
 superlativo(T):- member(T, ['JJR', 'JJS']).
 
+comparativo(T):- member(T, ['JJR']).
+
 no_propio(T):- member(T, ['NN', 'NNS', 'NNP', 'NNPS']).
 
 propio(T):- member(T, ['NNP', 'NNPS']).
@@ -40,6 +42,5 @@ determinante(T):- member(T, ['DT', 'PDT', 'PRP$', 'WDT', 'WP$']).
 
 preposicion(T):- member(T, ['IN']).
 
-tobe(T):- member(T, ['am', 'are', 'is', 'was', 'were', 'be', 'been', 'being']).
-                                                 
+tobe(T):- member(T, ['am', 'are', 'is', 'was', 'were', 'be', 'been', 'being']).                         
                                                                                                     

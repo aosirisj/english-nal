@@ -1,0 +1,6 @@
+lema('n\'t', 'not').
+lema('me', 'I').
+lema('her', 'she').
+lema('him', 'he').
+lema('us', 'we').
+lema('them', 'they').

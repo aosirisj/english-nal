@@ -1,2 +1,4 @@
-		There are small children .
+
+Ana	PERSON	is as tall as than
+Tom	PERSON	.
 

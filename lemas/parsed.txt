@@ -1,7 +1,4 @@
 lema('Ana', 'Ana').
-lema('is', 'be').
-lema('as', 'as').
-lema('tall', 'tall').
-lema('as', 'as').
-lema('than', 'than').
-lema('Tom', 'Tom').
+lema('teaches', 'teach').
+lema('me', 'me').
+lema('Logic', 'Logic').

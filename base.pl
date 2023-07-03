@@ -26,7 +26,7 @@ palabra_pos(PalabraConPos, Palabra, Pos):- atomic_list_concat([Palabra, Pos], '-
 %Listas de abreviaciones de PoS tags de Penn Treebank. Para nuestros fines sólo es necesario identificar la función de estos 4 tipos.
 adjetivo(T):- member(T, ['JJ']).
 
-superlativo(T):- member(T, ['JJR', 'JJS']).
+superlativo(T):- member(T, ['JJS']).
 
 comparativo(T):- member(T, ['JJR']).
 

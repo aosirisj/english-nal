@@ -1,3 +1,4 @@
 
-Ana	PERSON	teaches me Logic
+Tom	PERSON	is taller than
+Ana	PERSON	.
 

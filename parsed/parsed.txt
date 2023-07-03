@@ -1,7 +1,8 @@
-Ana/NNP teaches/VBZ me/PRP Logic/NN
+Tom/NNP is/VBZ taller/JJR than/IN Ana/NNP ./.
 
-nsubj(teaches-2, Ana-1)
-root(ROOT-0, teaches-2)
-iobj(teaches-2, me-3)
-obj(teaches-2, Logic-4)
+nsubj(taller-3, Tom-1)
+cop(taller-3, is-2)
+root(ROOT-0, taller-3)
+case(Ana-5, than-4)
+obl:than(taller-3, Ana-5)
 

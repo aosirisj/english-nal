@@ -195,6 +195,18 @@ copular(Dict, Deps, Predicado, inheritance(SujetoT, PredicadoT)):- %relacion adj
 							      encontrar_nsubj(Deps, Predicado, Suj),
 							      phrase(Dict, Deps, Suj, SujT)),
 				                             SujetoT = [SujT, ObjT]), !;
+				                             %relacion adjetivo superlativo
+                                                             encontrar_dep_sin_corte(Deps, cop, Predicado, _),
+							     not(encontrar_dep_sin_corte(Deps, ccomp, Predicado, _)),
+							     not(encontrar_dep_sin_corte(Deps, xcomp, Predicado, _)),
+							     (es_categoria(Dict, Predicado, superlativo),
+				                              %encontrar_dep_con_prep(Dict, Deps, obl, Predicado, Dependiente, _),
+				                              atomic_list_concat(['[', Predicado, ']'], PredicadoT),
+				                              %phrase(Dict, Deps, Dependiente, ObjT),
+				                              (encontrar_csubj(Dict, Deps, Predicado, SujT);
+							      encontrar_nsubj(Deps, Predicado, Suj),
+							      phrase(Dict, Deps, Suj, SujT)),
+				                             SujetoT = [SujT, _]), !;
 				                             %modificador adverbial
 				                             encontrar_dep_sin_corte(Deps, cop, Predicado, _),
 							     not(encontrar_dep_sin_corte(Deps, ccomp, Predicado, _)),
@@ -225,6 +237,7 @@ copular(Dict, Deps, Predicado, inheritance(SujetoT, PredicadoT)):- %relacion adj
                                                                
 adjetivo_a_juicio(Dict, Deps, juicio(inheritance(SujetoT, PredicadoT), [1,0.9])):- encontrar_dep_sin_corte(Deps, amod, Sujeto, Predicado),
                                                                       not(es_categoria(Dict, Predicado, superlativo)),
+                                                                      not(es_categoria(Dict, Predicado, comparativo)),
                                                                       (mods(Dict, Deps, Predicado, _, ModT),
                                                                        atomic_list_concat(['[', ModT, ']'], PredicadoT);
                                                                       phrase(Dict, Deps, Predicado, PredicadoT)),

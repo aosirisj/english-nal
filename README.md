@@ -1,4 +1,4 @@
-# NAL to English
+# English to NAL
 
 This repository contains the implementation in Prolog of the rule set described in the manuscript _Non-Axiomatic Logic Modeling of English Texts for Knowledge Discovery and Commonsense Reasoning_ for writing English sentences in the language of Non-Axiomatic Logic (NAL).
 
@@ -41,7 +41,7 @@ will give the result:
 ```prolog
 J = [juicio(inheritance(['{Ana-1}', 'Logic-4', '{I-3}'], 'teach-2'), [1, 0.9])] ;
 ```
-that represents judgement (×, {Ana}, logic, {I})⟶ teach with truth value (1, 0.9).
+that represents judgement (×, {Ana}, logic, {I}) ⟶ teach with truth value (1, 0.9).
 
 ## Notes
 

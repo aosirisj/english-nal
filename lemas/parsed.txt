@@ -1,4 +1,5 @@
+lema('Tom', 'Tom').
+lema('is', 'be').
+lema('taller', 'taller').
+lema('than', 'than').
 lema('Ana', 'Ana').
-lema('teaches', 'teach').
-lema('me', 'me').
-lema('Logic', 'Logic').

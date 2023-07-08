@@ -5,6 +5,11 @@ np_advmod(Dict, Deps, Predicado, ModT):- encontrar_dep_sin_corte(Deps, 'obl:npmo
                                          encontrar_dep_sin_corte(Deps, 'obl:npmod', Predicado, Sustantivo),
                                          palabra_termino(Dict, Deps, Sustantivo, ModT).
                                          
+%advcl_obl(Dict, Deps, Predicado, inheritance(SujetoT, PredicadoT)):- not(encontrar_dep_sin_corte(Deps, cop, Accion, _)),
+%								     es_categoria(Dict, Accion, verbo),
+%								     palabra_pos(Accion, Pred, _),
+%                                                                     not(tobe(Pred)),                               
+                                         
 ccomp_juicio_nocopular(Dict, Deps, Accion, inheritance(SujetoT, PredicadoT)):- not(encontrar_dep_sin_corte(Deps, cop, Accion, _)),
 								     es_categoria(Dict, Accion, verbo),
 								     palabra_pos(Accion, Pred, _),
@@ -126,7 +131,40 @@ analisis_xcomp_copular(Dict, Deps, Sub, inheritance(SujetoT, PredicadoT)):- %enc
 								      phrase(Dict, Deps, Suj, SujetoT))),
 								     %Analisis predicado
 								     phrase(Dict, Deps, Sub, PredicadoT).
-                                                                     
+								     
+obl_loc_temp(Dict, Deps, Accion, inheritance(SujetoT, PredicadoT)):- (encontrar_dep_sin_corte(Deps, obl, Accion, ModObl);
+                                                                      encontrar_dep_con_prep(Dict, Deps, obl, Accion, ModObl, _)),
+                                                                     not(encontrar_dep_sin_corte(Deps, ccomp, Accion, _)),
+								     not(encontrar_dep_sin_corte(Deps, xcomp, Accion, _)),
+								     %not(encontrar_dep_sin_corte(Deps, cop, Accion, _)),
+								     %es_categoria(Dict, Accion, verbo),
+								     palabra_pos(Accion, Pred, _),
+								     not(tobe(Pred)),
+								     palabra_pos(ModObl, ModOblP, _),
+								     localization(ModOblP),
+								     (activa_a_juicio(Dict, Deps, Accion, SujT), !;
+								      pasiva_a_juicio(Dict, Deps, Accion, SujT), !;
+								      copular(Dict, Deps, Accion, SujT)),
+								     phrase(Dict, Deps, ModObl, ObjT),
+								     SujetoT = [SujT, ObjT],
+								     PredicadoT = where, !;
+								     (encontrar_dep_sin_corte(Deps, obl, Accion, ModObl);
+                                                                      encontrar_dep_con_prep(Dict, Deps, obl, Accion, ModObl, _)),
+                                                                     not(encontrar_dep_sin_corte(Deps, ccomp, Accion, _)),
+								     not(encontrar_dep_sin_corte(Deps, xcomp, Accion, _)),
+								     %not(encontrar_dep_sin_corte(Deps, cop, Accion, _)),
+								     %es_categoria(Dict, Accion, verbo),
+								     palabra_pos(Accion, Pred, _),
+								     not(tobe(Pred)),
+								     palabra_pos(ModObl, ModOblP, _),
+								     time(ModOblP),
+								     (activa_a_juicio(Dict, Deps, Accion, SujT), !;
+								      pasiva_a_juicio(Dict, Deps, Accion, SujT), !;
+								      copular(Dict, Deps, Accion, SujT)),
+								     phrase(Dict, Deps, ModObl, ObjT),
+								     SujetoT = [SujT, ObjT],
+								     PredicadoT = when, !.
+								                                                                          
 activa_a_juicio(Dict, Deps, Accion, inheritance(SujetoT, PredicadoT)):- not(encontrar_dep_sin_corte(Deps, ccomp, Accion, _)),
 									not(encontrar_dep_sin_corte(Deps, xcomp, Accion, _)),
 								     not(encontrar_dep_sin_corte(Deps, cop, Accion, _)),
@@ -189,7 +227,7 @@ copular(Dict, Deps, Predicado, inheritance(SujetoT, PredicadoT)):- %relacion adj
 							     not(encontrar_dep_sin_corte(Deps, xcomp, Predicado, _)),
 							     (es_categoria(Dict, Predicado, comparativo),
 				                              encontrar_dep_con_prep(Dict, Deps, obl, Predicado, Dependiente, _),
-				                              atomic_list_concat(['[', Predicado, ']'], PredicadoT),
+				                              phrase(Dict, Deps, Predicado, PredicadoT),
 				                              phrase(Dict, Deps, Dependiente, ObjT),
 				                              (encontrar_csubj(Dict, Deps, Predicado, SujT);
 							      encontrar_nsubj(Deps, Predicado, Suj),
@@ -201,7 +239,7 @@ copular(Dict, Deps, Predicado, inheritance(SujetoT, PredicadoT)):- %relacion adj
 							     not(encontrar_dep_sin_corte(Deps, xcomp, Predicado, _)),
 							     (es_categoria(Dict, Predicado, superlativo),
 				                              %encontrar_dep_con_prep(Dict, Deps, obl, Predicado, Dependiente, _),
-				                              atomic_list_concat(['[', Predicado, ']'], PredicadoT),
+				                              phrase(Dict, Deps, Predicado, PredicadoT),
 				                              %phrase(Dict, Deps, Dependiente, ObjT),
 				                              (encontrar_csubj(Dict, Deps, Predicado, SujT);
 							      encontrar_nsubj(Deps, Predicado, Suj),
@@ -225,15 +263,7 @@ copular(Dict, Deps, Predicado, inheritance(SujetoT, PredicadoT)):- %relacion adj
 							     (encontrar_csubj(Dict, Deps, Predicado, SujetoT);
 							      encontrar_nsubj(Deps, Predicado, Suj),
 							      phrase(Dict, Deps, Suj, SujetoT)),
-							     phrase(Dict, Deps, Predicado, PredicadoT).%, !;
-				                             %encontrar_dep_sin_corte(Deps, cop, Predicado, _),
-							     %not(encontrar_dep_sin_corte(Deps, ccomp, Predicado, _)),
-							     %not(encontrar_dep_sin_corte(Deps, xcomp, Predicado, _)),
-				                             % palabra_termino(Dict, Deps, Predicado, PredicadoT),
-                                                             %(encontrar_csubj(Dict, Deps, Predicado, SujetoT);
-							     % encontrar_nsubj(Deps, Predicado, Suj),
-							     % palabra_termino(Dict, Deps, Suj, SujetoT)).
-                                                             %Falta agregar caso en el que Predicado es clausula
+							     phrase(Dict, Deps, Predicado, PredicadoT).
                                                                
 adjetivo_a_juicio(Dict, Deps, juicio(inheritance(SujetoT, PredicadoT), [1,0.9])):- encontrar_dep_sin_corte(Deps, amod, Sujeto, Predicado),
                                                                       not(es_categoria(Dict, Predicado, superlativo)),
@@ -257,6 +287,7 @@ oracion_a_juicio(Dict, Deps, juicio(Herencia, [1,0.9])):- member(Root, Deps),
 							   ccomp_juicio_copular(Dict, Deps, Cabeza, Herencia);
 							   xcomp_juicio_nocopular(Dict, Deps, Cabeza, Herencia);
 							   xcomp_juicio_copular(Dict, Deps, Cabeza, Herencia);
+							   obl_loc_temp(Dict, Deps, Cabeza, Herencia), !;
 							   activa_a_juicio(Dict, Deps, Cabeza, Herencia);
                                                            pasiva_a_juicio(Dict, Deps, Cabeza, Herencia);
                                                            copular(Dict, Deps, Cabeza, Herencia);

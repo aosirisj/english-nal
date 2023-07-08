@@ -38,6 +38,7 @@ instancia(Dict, Deps, PalabraConPos, Termino):- es_categoria(Dict, PalabraConPos
                                           
 palabra_termino(_, _, Palabra, Termino):- ground(Palabra), Palabra = 'PERSON', Termino = 'person.n.01', !;
                                           ground(Palabra), Palabra = 'ORGANIZATION', Termino = 'organization.n.01', !;
+                                          ground(Palabra), Palabra = 'DATE', Termino = 'calendar day.n.01', !;
                                           ground(Palabra), Palabra = 'LOCATION', Termino = 'location.n.01', !.
                                           
 palabra_termino(_, _, PalabraPos, Termino):- entidades(Ents),
@@ -73,16 +74,7 @@ palabra_termino(_, _, PPconPos, Termino):- ground(PPconPos),
                                            ground(PPconPos), 
                                            palabra_pos(PPconPos, PP, Pos),
                                            (PP = 'they'; PP = 'They'; PP = 'them'; PP = 'Them'),
-                                           atomic_list_concat(['{they-', Pos, '}'], Termino).  
-                                                      
-                                          
-%palabra_termino(Dict, Deps, PalabraConPos, Termino):- ground(PalabraConPos),
-%                                                      not(instancia(Dict, Deps, PalabraConPos, _)),
-%                                                      encontrar_dep_sin_corte(Deps, amod, PalabraConPos, AdjetivoConPos),
-%                                                      propiedad(Dict, AdjetivoConPos, AdjetivoT),
-%                                                      palabra_pos(PalabraConPos, Palabra, N),
-%                                                      lema(Palabra, Lema),   
-%                                                      atomic_list_concat([Lema, '-', N, ' & ', AdjetivoT], Termino), !.
+                                           atomic_list_concat(['{they-', Pos, '}'], Termino), !.  
                                                      
 palabra_termino(Dict, Deps, PalabraConPos, Termino):- ground(PalabraConPos),
                                                 propiedad(Dict, PalabraConPos, Termino), !;
@@ -94,6 +86,8 @@ palabra_termino(Dict, Deps, PalabraConPos, Termino):- ground(PalabraConPos),
                                                 palabra_pos(PalabraConPos, Palabra, N),
                                                 lema(Palabra, Lema),
                                                 atomic_list_concat([Lema, '-', N], Termino), !;
+                                                ground(PalabraConPos),
+                                                lema(PalabraConPos, Termino), !;
                                                 Termino = ' '.
                                                 
 mods(Dict, Deps, Mod1, Mod2, ModT):- (encontrar_dep_sin_corte(Deps, 'nummod', Mod1, Mod2);
@@ -121,13 +115,20 @@ np_mod(Dict, Deps, Core, Terms):- (es_categoria(Dict, Core, 'no_propio');
                                    (es_categoria(Dict, Core, 'no_propio');
                                     es_categoria(Dict, Core, 'propio')),
                                    (encontrar_dep_sin_corte(Deps, 'nummod', Core, Mod2);
-                                    encontrar_dep_con_prep(Dict, Deps, 'nmod', Core, Mod2, _);                            
-                                    encontrar_dep_sin_corte(Deps, 'nmod', Core, Mod2);
                                     encontrar_dep_sin_corte(Deps, 'amod', Core, Mod2);
                                     encontrar_dep_sin_corte(Deps, 'advmod', Core, Mod2)),
                                    palabra_termino(Dict, Deps, Core, CoreT),
                                    palabra_pos(Mod2, Mod2P, N),
-                                   atomic_list_concat(['[', Mod2P, '-', N, '] & ', CoreT], Terms).
+                                   atomic_list_concat(['[', Mod2P, '-', N, '] & ', CoreT], Terms), !;
+                                   (es_categoria(Dict, Core, 'no_propio');
+                                    es_categoria(Dict, Core, 'propio')),
+                                   (encontrar_dep_con_prep(Dict, Deps, 'nmod', Core, Mod2, _);                            
+                                    encontrar_dep_sin_corte(Deps, 'nmod', Core, Mod2)),
+                                   palabra_termino(Dict, Deps, Core, CoreT),
+                                   palabra_pos(Mod2, Mod2P, N),
+                                   (es_categoria(Dict, Mod2, 'determinante'),
+                                    atomic_list_concat(['{', Mod2P, '-', N, '_', Core, '}'], Terms);
+                                    atomic_list_concat([Mod2P, '-', N, '_', CoreT], Terms)). 
                                    
 vp_mod(Dict, Deps, Core, Terms):- es_categoria(Dict, Core, 'verbo'),
                                   palabra_termino(Dict, Deps, Core, CoreT),
@@ -149,6 +150,7 @@ ap_mod(Dict, Deps, Core, Terms):- es_categoria(Dict, Core, 'adjetivo'),
                                   mods(Dict, Deps, Mod2, _, Mod2T),
                                   palabra_termino(Dict, Deps, Core, CoreT),
                                   atomic_list_concat(['[', Mod2T, '] & ', CoreT], Terms), !;
+                                  es_categoria(Dict, Core, 'adjetivo'),
                                   (encontrar_dep_sin_corte(Deps, 'nummod', Core, Mod2);
                                    encontrar_dep_con_prep(Dict, Deps, 'nmod', Core, Mod2, _);                            
                                    encontrar_dep_sin_corte(Deps, 'nmod', Core, Mod2);

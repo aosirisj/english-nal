@@ -42,5 +42,11 @@ determinante(T):- member(T, ['DT', 'PDT', 'PRP$', 'WDT', 'WP$']).
 
 preposicion(T):- member(T, ['IN']).
 
-tobe(T):- member(T, ['am', 'are', 'is', 'was', 'were', 'be', 'been', 'being']).                         
+tobe(T):- member(T, ['am', 'are', 'is', 'was', 'were', 'be', 'been', 'being']).
+
+localization(T):- juicio(inheritance(T, 'location.n.01'), [1, 0.9]);
+                  member(T, ['Boston']).
+
+time(T):- juicio(inheritance(T, 'calendar day.n.01'), [1, 0.9]);
+          member(T, ['Friday']).                      
                                                                                                     

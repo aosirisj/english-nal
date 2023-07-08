@@ -1,5 +1,5 @@
-lema('Tom', 'Tom').
-lema('is', 'be').
-lema('taller', 'taller').
-lema('than', 'than').
-lema('Ana', 'Ana').
+lema('They', 'They').
+lema('will', 'will').
+lema('arrive', 'arrive').
+lema('on', 'on').
+lema('Sunday', 'Sunday').

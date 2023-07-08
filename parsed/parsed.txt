@@ -1,8 +1,8 @@
-Tom/NNP is/VBZ taller/JJR than/IN Ana/NNP ./.
+They/PRP will/MD arrive/VB on/IN Sunday/NNP ./.
 
-nsubj(taller-3, Tom-1)
-cop(taller-3, is-2)
-root(ROOT-0, taller-3)
-case(Ana-5, than-4)
-obl:than(taller-3, Ana-5)
+nsubj(arrive-3, They-1)
+aux(arrive-3, will-2)
+root(ROOT-0, arrive-3)
+case(Sunday-5, on-4)
+obl:on(arrive-3, Sunday-5)
 

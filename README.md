@@ -41,13 +41,16 @@ will give the result:
 ```prolog
 J = [juicio(inheritance(['{Ana-1}', 'Logic-4', '{I-3}'], 'teach-2'), [1, 0.9])] ;
 ```
-that represents judgement (×, {Ana}, logic, {I}) ⟶ teach with truth value (1, 0.9).
+that represents judgement (×, {Ana}, logic, {I}) ⟶ teach with truth value (1, 0.9). 
+In general, _juicio_ is a binary predicate where the first argument represents an inheritance sentence and the second argument represents the truth value of the judgement. Besides, _inheritance_ is also a binary predicate that represents an inheritance relation; the first argument represents the subject of the sentence, and the second argument represents the predicate of the sentence.
+In other words, a judgement S ⟶ P (f, c) will be represented by the predicades _juicio_ and _inheritance_ as juicio(inheritance(S, P), [f, c]).
 
 ## Notes
 
 - If you want to change folder names, versions, or use other models, change paths in traduccion.pl
 - Parsed dependencies can be seen in /traduccion/parsed/parsed.txt. You can change these dependencies if necessary. After rectifying 
-the dependencies, use predicate _crear\_juicios(J)_ instead of _traduccion(S, J)_. 
+the dependencies, use predicate _crear\_juicios(J)_ instead of _traduccion(S, J)_.
+- Names of some predicates are written in Spanish (traduccion, crear_juicios, lemas, etc).
 
 ## Contributing
 

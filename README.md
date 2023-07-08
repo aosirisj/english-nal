@@ -48,9 +48,8 @@ In other words, a judgement S ⟶ P (f, c) will be represented by the predicades
 ## Notes
 
 - If you want to change folder names, versions, or use other models, change paths in traduccion.pl
-- Parsed dependencies can be seen in /traduccion/parsed/parsed.txt. You can change these dependencies if necessary. After rectifying 
-the dependencies, use predicate _crear\_juicios(J)_ instead of _traduccion(S, J)_.
-- Names of some predicates are written in Spanish (traduccion, crear_juicios, lemas, etc).
+- Parsed dependencies can be seen in /traduccion/parsed/parsed.txt and sometimes can be a little off. You can change these dependencies if necessary. After rectifying the dependencies, use predicate _crear\_juicios(J)_ instead of _traduccion(S, J)_.
+- The names of some predicates are written in Spanish (traduccion, crear_juicios, lemas, etc).
 
 ## Contributing
 

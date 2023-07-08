@@ -42,11 +42,27 @@ determinante(T):- member(T, ['DT', 'PDT', 'PRP$', 'WDT', 'WP$']).
 
 preposicion(T):- member(T, ['IN']).
 
+modal(T):- member(T, ['MD']).
+
 tobe(T):- member(T, ['am', 'are', 'is', 'was', 'were', 'be', 'been', 'being']).
 
-localization(T):- juicio(inheritance(T, 'location.n.01'), [1, 0.9]);
-                  member(T, ['Boston']).
+localization(T):- member(T, ['Boston', 'barn', 'room', 'house', 'party']), !;
+                  juicio(inheritance(T, 'location.n.01'), [1, 0.9]).
+                  
+time(T):- member(T, ['Friday']), !;
+          juicio(inheritance(T, 'calendar day.n.01'), [1, 0.9]).
+          
+advcl_place(T):- member(T, [where, wherever, anywhere, everywhere]).
 
-time(T):- juicio(inheritance(T, 'calendar day.n.01'), [1, 0.9]);
-          member(T, ['Friday']).                      
+advcl_time(T):- member(T, [when, before, after, while, until, sooner, later, as]).
+
+advcl_concession(T):- member(T, [although, though, while, but]).
+
+advcl_purpose(T):- member(T, [so]).
+
+advcl_reason(T):- member(T, [because, since, due]).
+
+advcl_manner(T):- member(T, [like]).
+
+advcl_comparison(T):- member(T, [as]).
                                                                                                     

@@ -1,8 +1,12 @@
-They/PRP will/MD arrive/VB on/IN Sunday/NNP ./.
+To/TO hike/VB in/IN the/DT mountains/NNS is/VBZ to/IN experience/NN nature/NN ./.
 
-nsubj(arrive-3, They-1)
-aux(arrive-3, will-2)
-root(ROOT-0, arrive-3)
-case(Sunday-5, on-4)
-obl:on(arrive-3, Sunday-5)
+mark(hike-2, To-1)
+csubj(nature-9, hike-2)
+case(mountains-5, in-3)
+det(mountains-5, the-4)
+obl:in(hike-2, mountains-5)
+cop(nature-9, is-6)
+case(nature-9, to-7)
+compound(nature-9, experience-8)
+root(ROOT-0, nature-9)
 

@@ -1,5 +1,9 @@
-lema('They', 'They').
-lema('will', 'will').
-lema('arrive', 'arrive').
-lema('on', 'on').
-lema('Sunday', 'Sunday').
+lema('To', 'To').
+lema('hike', 'hike').
+lema('in', 'in').
+lema('the', 'the').
+lema('mountains', 'mountain').
+lema('is', 'be').
+lema('to', 'to').
+lema('experience', 'experience').
+lema('nature', 'nature').

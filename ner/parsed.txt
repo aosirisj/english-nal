@@ -1,2 +1,3 @@
-		To hike in the mountains is to experience nature .
+
+Ana	PERSON	teaches me Logic .
 

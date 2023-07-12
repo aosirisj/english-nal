@@ -1,12 +1,7 @@
-To/TO hike/VB in/IN the/DT mountains/NNS is/VBZ to/IN experience/NN nature/NN ./.
+Ana/NNP teaches/VBZ me/PRP Logic/NN ./.
 
-mark(hike-2, To-1)
-csubj(nature-9, hike-2)
-case(mountains-5, in-3)
-det(mountains-5, the-4)
-obl:in(hike-2, mountains-5)
-cop(nature-9, is-6)
-case(nature-9, to-7)
-compound(nature-9, experience-8)
-root(ROOT-0, nature-9)
+nsubj(teaches-2, Ana-1)
+root(ROOT-0, teaches-2)
+iobj(teaches-2, me-3)
+obj(teaches-2, Logic-4)
 

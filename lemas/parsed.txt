@@ -1,9 +1,4 @@
-lema('To', 'To').
-lema('hike', 'hike').
-lema('in', 'in').
-lema('the', 'the').
-lema('mountains', 'mountain').
-lema('is', 'be').
-lema('to', 'to').
-lema('experience', 'experience').
-lema('nature', 'nature').
+lema('Ana', 'Ana').
+lema('teaches', 'teach').
+lema('me', 'me').
+lema('Logic', 'Logic').

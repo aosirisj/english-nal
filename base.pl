@@ -3,6 +3,8 @@
 :-use_module(library(pcre)).
 %:- include('./traduccion/lemas/parsed.txt').
 
+:-assert(juicio(inheritance('thing.n.08', 'entity.n.01'), [1, 0.9])).
+
 %is_odd_element(L, A) es verdadero cuando A tiene un índice impar en L.
 %L - Lista
 %A - Any
@@ -46,7 +48,7 @@ modal(T):- member(T, ['MD']).
 
 tobe(T):- member(T, ['am', 'are', 'is', 'was', 'were', 'be', 'been', 'being']).
 
-localization(T):- member(T, ['Boston', 'barn', 'room', 'house', 'party']), !;
+localization(T):- member(T, ['Boston', 'barn', 'room', 'house', 'party', 'supermarket', 'food market', 'store', 'market']), !;
                   juicio(inheritance(T, 'location.n.01'), [1, 0.9]).
                   
 time(T):- member(T, ['Friday']), !;

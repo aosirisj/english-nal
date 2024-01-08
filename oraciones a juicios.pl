@@ -248,7 +248,8 @@ obl_loc_temp(Dict, Deps, Accion, inheritance(SujetoT, PredicadoT)):- (encontrar_
 								     %es_categoria(Dict, Accion, verbo),
 								     palabra_pos(Accion, Pred, _),
 								     not(tobe(Pred)),
-								     palabra_pos(ModObl, ModOblP, _),
+								     palabra_pos(ModObl, ModOblPa, _),
+								     lema(ModOblPa, ModOblP), %%%%falta lematizar todo
 								     localization(ModOblP),
 								     (activa_a_juicio(Dict, Deps, Accion, SujT), !;
 								      pasiva_a_juicio(Dict, Deps, Accion, SujT), !;

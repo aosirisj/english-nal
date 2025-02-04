@@ -1,6 +1,6 @@
 # English to NAL
 
-This repository contains the implementation in Prolog of the rule set described in the manuscript _Non-Axiomatic Logic Modeling of English Texts for Knowledge Discovery and Commonsense Reasoning_ for writing English sentences in the language of Non-Axiomatic Logic (NAL).
+This repository contains the implementation in Prolog of the rule set described in the paper [Non-Axiomatic Logic Modeling of English Texts for Knowledge Discovery and Commonsense Reasoning](https://www.mdpi.com/2076-3417/13/20/11535) for writing English sentences in the language of Non-Axiomatic Logic (NAL).
 
 ## Prerequisites
 
@@ -55,4 +55,5 @@ In other words, a judgement S ⟶ P (f, c) will be represented by the predicades
 
 Pull requests are welcome. For major changes, please open an issue first
 to discuss what you would like to change.
+
 

@@ -1,0 +1,12 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+authors:
+  - family-names: Juárez
+    given-names: Osiris
+    orcid: https://orcid.org/0009-0008-7419-1651
+title: "Non-Axiomatic Logic Modeling of English Texts"
+version: 1.1.0
+identifiers:
+  - type: doi
+    value: 10.3390/app132011535
+date-released: 2023-10-21
